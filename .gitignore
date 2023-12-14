@@ -1,0 +1,12 @@
+build
+Test
+
+/subprojects/*
+!/subprojects/glm.wrap
+!/subprojects/sdl2.wrap
+!/subprojects/sdl2_mixer.wrap
+!/subprojects/ogg.wrap
+!/subprojects/tinyxml2.wrap
+!/subprojects/vorbis.wrap
+!/subprojects/freetype2.wrap
+!/subprojects/fmt.wrap
