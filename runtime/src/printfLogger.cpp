@@ -5,7 +5,7 @@ printfLogger::printfLogger()
 {}
 
 void printfLogger::log(const char* str) {
-	printf("%s", str);
+	printf("%s\n", str);
 	logs.push_back({ str, 3.f });
 	isStale = true;
 

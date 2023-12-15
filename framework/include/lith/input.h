@@ -626,7 +626,6 @@ private:
     bool _AxisGroupExists(const InputName& axis);
     vec2 _GetAxisNoRecurse(const InputName& axisName, bool useOnlyInputSetThisFrameOverride);
     vec2 _ApplySettings(vec2 in, const InputAxisSettings& settings);
-
 	void _RemoveAxisMapping(const InputName& axisName, const InputAxis& axis);
 
 private:
