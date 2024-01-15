@@ -8,10 +8,10 @@
             "name": "(Windows) Launch",
             "type": "cppvsdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/build/runtime/lith.exe",
-            "args": ["./DashGame.lithproj"],
+            "program": "${workspaceFolder}/build/lith.exe",
+            "args": [],
             "stopAtEntry": false,
-            "cwd": "C:/dev/lithProjects/DashGame/",
+            "cwd": "${fileDirname}",
             "environment": [],
             "console": "externalTerminal"
         }
