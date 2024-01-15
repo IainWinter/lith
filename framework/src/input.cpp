@@ -331,7 +331,7 @@ const char* GetInputCodeName(int code) {
 
 InputAxisBuilder InputMap::CreateAxis(const InputName& name) {
     if (_AxisExists(name)) {
-        lithLog("w~Tried to create an axis that already exists");
+        print("w~Tried to create an axis that already exists");
         throw nullptr;
     }
 
@@ -341,7 +341,7 @@ InputAxisBuilder InputMap::CreateAxis(const InputName& name) {
 
 AxisGroupBuilder InputMap::CreateGroupAxis(const InputName& name) {
     if (_AxisGroupExists(name)) {
-        lithLog("w~Tried to create an group axis that already exists");
+        print("w~Tried to create an group axis that already exists");
         throw nullptr;
     }
 
@@ -353,7 +353,7 @@ void InputMap::RemoveAxis(const InputName& name) {
     auto axis = Axes.find(name);
 
     if (axis == Axes.end()) {
-        lithLog("w~Tried to remove axis that does not exist");
+        print("w~Tried to remove axis that does not exist");
         return;
     }
 
@@ -365,7 +365,7 @@ void InputMap::RemoveGroupAxis(const InputName& name) {
     auto group = GroupAxes.find(name);
 
     if (group == GroupAxes.end()) {
-        lithLog("w~Tried to remove group axis that does not exist");
+        print("w~Tried to remove group axis that does not exist");
         return;
     }
 
@@ -373,7 +373,7 @@ void InputMap::RemoveGroupAxis(const InputName& name) {
         auto axis = Axes.find(axisName);
 
         if (axis == Axes.end()) {
-            lithLog("w~Tried to remove a group axis which has had some of its axes removed."
+            print("w~Tried to remove a group axis which has had some of its axes removed."
                     " Remove all axes before removing the group.");
             return;
         }
@@ -614,7 +614,7 @@ void InputMap::SetState(int code, float state) {
 	// all valid states get registered when the context is created,
 	// so check here to stop map from growing
 	if (State.count(code) == 0) {
-        lithLog("w~Tried to set state of invalid input code. %d -> %f", code, state);
+        print("w~Tried to set state of invalid input code. %d -> %f", code, state);
 		return;
 	}
     

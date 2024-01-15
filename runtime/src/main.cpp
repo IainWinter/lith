@@ -36,20 +36,20 @@ static std::atomic<bool> s_compiling = false;
 static bool running = true;
 
 void compileSketch(Job job) {
-	lithLog("Building sketch...");
+	print("Building sketch...");
 	s_compiling = true;
 
 	// FILE* file = _popen(GetBuildProjectLibraryCommand(s_plugin.getProject()).c_str(), "r");
 
 	// char buffer[1024];
 	// while (fgets(buffer, sizeof(buffer), file) != nullptr) {
-	// 	lithLogNoNewline(buffer);
+	// 	printNoNewline(buffer);
 	// }
 
 	// _pclose(file);
 
 	s_compiling = false;
-	lithLog("Done");
+	print("Done");
 }
 
 void sketchPluginEventHandler(const lithEvent& event) {
@@ -77,7 +77,7 @@ void sketchPluginEventHandler(const lithEvent& event) {
 		}
 
 		case lithRecompilePlugin: {
-			lithLog("Attempting to recompile");
+			print("Attempting to recompile");
 
 			if (!s_compiling) {
 				JobTree& tree = s_job.CreateTree();
@@ -176,11 +176,10 @@ int main(int argc, char *argv[]) {
 		return 0;
 	}
 
-	// Force init the project
 	if (argc >= 3 && strcmp(argv[1], "init") == 0) {
 		Project project = GetProject(argv[2]);
 		if (project.failedToLoad) {
-			lithLog("Failed to load project. File not found: {}", argv[2]);
+			print("Failed to load project. File not found: {}", argv[2]);
 			return 1;
 		}
 
@@ -189,32 +188,33 @@ int main(int argc, char *argv[]) {
 	}
 
 	if (argc == 1) {
-		lithLog("To run a project, provide the .lithproj file as the second argument");
+		print("To run a project, provide the .lithproj file as the second argument");
 		return 0;
 	}
 
 	Project project = GetProject(argv[1]);
 
 	if (project.failedToLoad) {
-		lithLog("Failed to load project. File not found: {}", argv[1]);
+		print("Failed to load project. File not found: {}", argv[1]);
 		return 1;
 	}
 
-	lithLog("Init project");
+	print("Init project");
 	SetupProjectOnce(project); // init if this is the first time running a project
 
-	lithLog("Compile project");
+	print("Compile project");
 	CompileProject(project);
 
-	lithLog("Built project");
+	print("Built project");
 
+	print("Init SDL2");
 	initSDL();
-	lithLog("Init SDL2");
 
+	print("Open window");
 	s_window.create();
-	lithLog("Open window");
+
+	print("Open audio");
 	s_audio.create();
-	lithLog("Open audio");
 
 	auto [windowWidth, windowHeight] = s_window.getSize();
 
@@ -238,6 +238,10 @@ int main(int argc, char *argv[]) {
 
 	s_plugin = SketchPlugin(project);
 	s_plugin.create(&s_app);
+
+	if (!s_plugin.isLoaded()) {
+		return 1;
+	}
 
 	Font defaultFont;
 	defaultFont

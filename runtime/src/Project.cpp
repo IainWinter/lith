@@ -41,28 +41,15 @@ static const char* templateProjectFile = R"({{
 	"name": "{}"
 }})";
 
-// static const char* templatevsCodeCppProps = R"({{
-//     "configurations": [
-//         {{
-//             "name": "{}",
-//             "includePath": [
-//                 "${{default}}",
-//                 ".lith/subprojects/lith/include"
-//             ]
-//         }}
-//     ]
-// }}
-// )";
-
 using namespace std::filesystem;
 
 void CreateProject(const std::string& projectFilePath) {
-	path root = projectFilePath;
+	path root = absolute(projectFilePath);
 	path outerFolder = root.parent_path();
 	std::string name = root.stem().string();
 
 	if (exists(root)) {
-		lithLog("Cannot create project. {} already exists", root.string());
+		print("Cannot create project. {} already exists", root.string());
 		return;
 	}
 
@@ -96,14 +83,20 @@ void CreateProject(const std::string& projectFilePath) {
 }
 
 void RepairProject(const std::string& projectFilePath) {
-	path root = projectFilePath;
-	std::string name = root.stem().string();
-
+	path root = absolute(projectFilePath);
+	std::string name = root.parent_path().filename().string();
+	
 	create_directories(root / ".lith");
 	create_directories(root / ".lith" / "subprojects");
 	{
 		std::ofstream mesonBuildFile(root / ".lith" / "meson.build");
 		mesonBuildFile << fmt::format(fmt::runtime(templateBuildScript), name, name);
+	}
+
+	if (!exists(root / (name + ".lithproj")))
+	{
+		std::ofstream lithProjectFile(root / (name + ".lithproj"));
+		lithProjectFile << fmt::format(fmt::runtime(templateProjectFile), name);
 	}
 }
 
@@ -114,7 +107,7 @@ Project GetProject(const std::string& projectFilePath) {
 		return failed;
 	}
 
-	path folder = path(projectFilePath).parent_path();
+	path folder = absolute(path(projectFilePath).parent_path());
 	std::string name;
 
 	// read name form file

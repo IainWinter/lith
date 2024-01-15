@@ -16,7 +16,7 @@ CR_EXPORT int cr_main(cr_plugin* plugin, cr_op operation) {
             __setContext(sketch, context->app);
             setup();
 
-            lithLog("Sketch loaded");
+            print("Sketch loaded");
             break;
 
         case CR_STEP: 
@@ -28,11 +28,11 @@ CR_EXPORT int cr_main(cr_plugin* plugin, cr_op operation) {
             break;
 
         case CR_UNLOAD:
-            lithLog("Sketch unloaded");
+            print("Sketch unloaded");
             break;
 
         case CR_CLOSE:
-            lithLog("Sketch closed");
+            print("Sketch closed");
             break;
     }
 

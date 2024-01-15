@@ -18,7 +18,7 @@ const std::string& printfLogger::getLines() {
 	if (isStale) {
 		std::stringstream ss;
 		for (const auto& [str, _] : logs) {
-			ss << str;
+			ss << str << '\n';
 		}
 
 		string = ss.str();

@@ -9,7 +9,7 @@ void gl_errorMessageCallback(GLenum source, GLenum type, GLuint id,
 	GLenum severity, GLsizei length, const GLchar* message, const void* userParam
 ) {
 	if (type == GL_DEBUG_TYPE_ERROR) {
-		lithLog("GL: {}", message);
+		print("GL: {}", message);
 	}
 }
 
@@ -49,7 +49,7 @@ void SDLWindow::create() {
 		SDL_GL_SetAttribute(SDL_GL_MULTISAMPLESAMPLES, 4);
 	}
 
-	lithLog("set gl attributes");
+	print("set gl attributes");
 
 	m_window = SDL_CreateWindow("lith", 
 		SDL_WINDOWPOS_CENTERED, 
@@ -59,7 +59,7 @@ void SDLWindow::create() {
 		SDL_WINDOW_RESIZABLE | SDL_WINDOW_OPENGL | SDL_WINDOW_ALLOW_HIGHDPI
 	);
 
-	lithLog("made window");
+	print("made window");
 
 	if (!s_opengl) {
 		// Init OpenGL using SDL
@@ -69,17 +69,17 @@ void SDLWindow::create() {
 
 		gladLoadGLLoader((GLADloadproc)SDL_GL_GetProcAddress);
 
-		lithLog("created opengl context");
+		print("created opengl context");
 	}
 
 	uintptr_t ptr = (uintptr_t)SDL_GL_GetProcAddress;
 
-	lithLog("SDL_GL_GetProcAddress = {}", ptr);
+	print("SDL_GL_GetProcAddress = {}", ptr);
 
 	int samples;
 	glGetIntegerv(GL_SAMPLES, &samples);
 
-	lithLog("got samples {}", samples);
+	print("got samples {}", samples);
 
 	int b, s;
 	SDL_GL_GetAttribute(SDL_GL_MULTISAMPLEBUFFERS, &b);
@@ -88,7 +88,7 @@ void SDLWindow::create() {
 	glEnable(GL_DEBUG_OUTPUT);
 	glDebugMessageCallback(gl_errorMessageCallback, 0);
 
-	lithLog("set error message callback");
+	print("set error message callback");
 
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -96,7 +96,7 @@ void SDLWindow::create() {
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_MULTISAMPLE);
 
-	lithLog("window done");
+	print("window done");
 }
 
 void SDLWindow::free() {

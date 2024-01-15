@@ -8,7 +8,7 @@ void registerLoggerInterface(LoggerInterface* backend) {
 	::backend = backend;
 }
 
-void lithLog(const char* str) {
+void print(const char* str) {
 	backend->log(str);
 }
 
@@ -50,7 +50,7 @@ void lithLog(const char* str) {
 // 	return ss.str();
 // }
 
-// void lithLogStringArgs(const char* format, std::initializer_list<std::string> arguments, bool newline) {
+// void printStringArgs(const char* format, std::initializer_list<std::string> arguments, bool newline) {
 // 	auto argument = arguments.begin();
 // 	const int len = (int)strlen(format);
 	

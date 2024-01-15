@@ -9,9 +9,9 @@
             "type": "cppvsdbg",
             "request": "launch",
             "program": "${workspaceFolder}/build/runtime/lith.exe",
-            "args": ["C:/dev/weekly/lithTetris/lithTetris.v2proj"],
+            "args": ["./DashGame.lithproj"],
             "stopAtEntry": false,
-            "cwd": "${fileDirname}",
+            "cwd": "C:/dev/lithProjects/DashGame/",
             "environment": [],
             "console": "externalTerminal"
         }

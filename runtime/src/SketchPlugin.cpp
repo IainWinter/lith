@@ -4,6 +4,8 @@
 
 // required in the host only and before including cr.h
 #define CR_HOST
+#define CR_DEBUG
+#define CR_LOG
 #include "lith/cr.h"
 
 #include "SDL_video.h"
@@ -34,8 +36,16 @@ void SketchPlugin::create(AppContext* app) {
 	bool loaded = cr_plugin_open(*m_plugin, m_project.outputFile.c_str());
 
 	if (!loaded) {
-		lithLog("Failed to load project '{}'", m_project.name);
-		// may want to delete the context
+		print("Failed to load project '{}'", m_project.name);
+
+		// Delete everything so isLoaded returns false
+		delete m_sketch;
+		delete m_context;
+		delete m_plugin;
+
+		m_sketch = nullptr;
+		m_context = nullptr;
+		m_plugin = nullptr;
 	}
 }
 

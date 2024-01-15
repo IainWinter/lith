@@ -3,11 +3,11 @@
 #include "lith/log.h"
 
 void logMixError() {
-	lithLog("SDL_mixer error: {}", SDL_GetError());
+	print("SDL_mixer error: {}", SDL_GetError());
 }
 
 void logUserError(const char* message) {
-	lithLog("Audio error: {}", message);
+	print("Audio error: {}", message);
 }
 
 void SDLMixerAudioBackend::create() {

@@ -28,13 +28,13 @@ FontGenerationOutput msdfgenFontGenerator::generate(const FontGenerationInput& c
 
 	msdfgen::FreetypeHandle* ft = msdfgen::initializeFreetype();
 	if (!ft) {
-		lithLog("Failed to initialize freetype");
+		print("Failed to initialize freetype");
 		return output;
 	}
 
 	msdfgen::FontHandle* font = msdfgen::loadFont(ft, config.filepath);
 	if (!font) {
-		lithLog("Failed to load font {}", config.filepath);
+		print("Failed to load font {}", config.filepath);
 		msdfgen::deinitializeFreetype(ft);
 		return output;
 	}

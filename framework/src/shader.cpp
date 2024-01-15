@@ -46,7 +46,7 @@ ShaderProgram& ShaderProgram::compile() {
 			std::vector<GLchar> infoLog(maxLength);
 			glGetShaderInfoLog(source.handle, maxLength, &maxLength, &infoLog[0]);
 
-			lithLog("Failed to compile shader:");
+			print("Failed to compile shader:");
 			
 			std::vector<std::string> lines = split(source.source, "\n");
 			std::vector<std::string> errorMessage = split(infoLog.data(), "\n");
@@ -68,7 +68,7 @@ ShaderProgram& ShaderProgram::compile() {
 			for (int i = 0; i < errorLines.size(); i++) {
 				const std::string& line = lines[errorLines[i]];
 				const std::string& error = errorMessage[i];
-				lithLog("{}\n\n\t{}\n", error, trim(line));
+				print("{}\n\n\t{}\n", error, trim(line));
 			}
 
 			free();

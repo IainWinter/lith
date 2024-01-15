@@ -76,9 +76,9 @@ Font& Font::characterPadding(float paddingX, float paddingY) {
 }
 
 Font& Font::generate() {
-    lithLog("Generating font texture atlas for {}...", input.filepath);
+    print("Generating font texture atlas for {}...", input.filepath);
     data = backend->generate(input);
-    lithLog("Done");
+    print("Done");
     return *this;
 }
 
